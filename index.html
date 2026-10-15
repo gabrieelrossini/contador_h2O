@@ -2,7 +2,8 @@
 <html lang="pt-br">
     <head>
         <meta charset="utf-8" />
-        <title></title>
+        <title>Contador de Água</title>
+        <link rel="stylesheet" href="./CSS/style.css" />
     </head>
     <body>
         <header></header>
@@ -20,8 +21,19 @@
                 <button id="btn-menos-meio">-½</button>
                 <button id="btn-mais-meio">+½</button>
                 <button id="btn-mais-um">+1</button>
+                <span id="barra-progresso">
+                    <span id="barra-preenchida"></span>
+                </span>
+                <p id="mensagem-meta"></p>
+                <button id="btn-reset">Resetar dia</button>
+                <button id="btn-reset-geral">Resetar valores</button>
             </div>
         </main>
+        <div id="modal-reset">
+            <p>Tem certeza disso?</p>
+            <button id="btn-confirmar-reset">Sim</button>
+            <button id="btn-cancelar-reset">Não</button>
+        </div>
         <footer></footer>
         <script src="./JS/core.js"></script>
         <script src="./JS/storage.js"></script>

@@ -22,3 +22,9 @@ function jaConfigurado() {
     return true;
   }
 }
+
+function limparTudo() {
+  localStorage.removeItem('peso');
+  localStorage.removeItem('tamanhoCopo');
+  localStorage.removeItem('mlBebidos');
+}

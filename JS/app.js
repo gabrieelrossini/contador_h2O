@@ -25,6 +25,7 @@ document.getElementById('btn-salvar').addEventListener('click', function() {
 
   salvarEstado(peso, tamanhoCopo, 0);
   mostrarTela('contador');
+  renderizarContador();
 });
 
 function renderizarContador() {
@@ -43,6 +44,31 @@ function renderizarContador() {
   // 4. Coloca na tela
   document.getElementById('texto-copos').textContent = textoCopos;
   document.getElementById('texto-ml').textContent = textoMl;
+
+  // Calcula porcentagem (trava em 100% se passar)
+  const porcentagem = Math.min(100, (estado.mlBebidos / metaMl) * 100);
+
+  // Atualiza a barra
+  document.getElementById('barra-preenchida').style.width = porcentagem + '%';
+
+  // Verifica se bateu a meta
+  if (estado.mlBebidos >= metaMl) {
+    document.getElementById('mensagem-meta').textContent = 'Meta batida!';
+  } else {
+    document.getElementById('mensagem-meta').textContent = '';
+  }
+
+  // Desabilita botões de subtrair se mlBebidos for 0
+  const btnMenosUm = document.getElementById('btn-menos-um');
+  const btnMenosMeio = document.getElementById('btn-menos-meio');
+
+  if (estado.mlBebidos === 0) {
+    btnMenosUm.disabled = true;
+    btnMenosMeio.disabled = true;
+  } else {
+    btnMenosUm.disabled = false;
+    btnMenosMeio.disabled = false;
+  }
 }
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -80,4 +106,41 @@ document.getElementById('btn-menos-meio').addEventListener('click', function() {
 });
 document.getElementById('btn-menos-um').addEventListener('click', function() {
   adicionarCopos(-1);
+});
+
+// Cancela: só fecha o modal
+document.getElementById('btn-cancelar-reset').addEventListener('click', function() {
+  document.getElementById('modal-reset').style.display = 'none';
+});
+
+// Botão reset geral abre o mesmo modal
+document.getElementById('btn-reset-geral').addEventListener('click', function() {
+  document.getElementById('modal-reset').style.display = 'block';
+});
+
+let tipoReset = ''; // 'dia' ou 'geral'
+
+// Quando abre o modal do reset do dia
+document.getElementById('btn-reset').addEventListener('click', function() {
+  tipoReset = 'dia';
+  document.getElementById('modal-reset').style.display = 'block';
+});
+
+// Quando abre o modal do reset geral
+document.getElementById('btn-reset-geral').addEventListener('click', function() {
+  tipoReset = 'geral';
+  document.getElementById('modal-reset').style.display = 'block';
+});
+
+// No confirmar, verifica qual era
+document.getElementById('btn-confirmar-reset').addEventListener('click', function() {
+  if (tipoReset === 'dia') {
+    const estado = carregarEstado();
+    salvarEstado(estado.peso, estado.tamanhoCopo, 0);
+    renderizarContador();
+  } else {
+    limparTudo();
+    mostrarTela('configuracao');
+  }
+  document.getElementById('modal-reset').style.display = 'none';
 });
