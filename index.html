@@ -6,8 +6,25 @@
     </head>
     <body>
         <header></header>
-        <main></main>
+        <main>
+            <div id="configuracao">
+                <h2>Configuração</h2>
+                <label>Peso (kg): <input type="number" id="peso" /></label>
+                <label>Tamanho do copo (ml): <input type="number" id="tamanho-copo" /></label>
+                <button id="btn-salvar">Salvar</button>
+            </div>
+            <div id="contador">
+                <p id="texto-copos"></p>
+                <p id="texto-ml"></p>
+                <button id="btn-menos-um">-1</button>
+                <button id="btn-menos-meio">-½</button>
+                <button id="btn-mais-meio">+½</button>
+                <button id="btn-mais-um">+1</button>
+            </div>
+        </main>
         <footer></footer>
         <script src="./JS/core.js"></script>
+        <script src="./JS/storage.js"></script>
+        <script src="./JS/app.js"></script>
     </body>
 </html>
